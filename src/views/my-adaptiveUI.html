@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<!-- Top Level Views -->
+<!--<link rel="import" href="my-hub.html">-->
+<!--<link rel="import" href="my-login.html">-->
+<!--<link rel="import" href="my-dashboard.html">-->
+<!--<link rel="import" href="my-classview.html">-->
+<!--<link rel="import" href="my-studentview.html">-->
+<!--<link rel="import" href="my-teacherview.html">-->
+<!--<link rel="import" href="my-seatingview.html">-->
+<!-- End of -->
+<link rel="import" href="my-icons.html">
+
+<dom-module id="my-adaptive-ui">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+            <my-hub name="hub"></my-hub>
+            <my-login name="login"></my-login>
+            <my-dashboard name="dashboard"></my-dashboard>
+            <my-classview name="classview" route="{{subRoute}}"></my-classview>
+            <my-studentview name="studentview"></my-studentview>
+            <my-seatingview name="seatingview"></my-seatingview>
+            <my-teacherview name="teacherview" route="{{subRoute}}"></my-teacherview>
+        </iron-pages>
+    </template>
+    <script>
+        Polymer({
+            is : 'my-adaptive-ui',
+            properties : {
+                page : {
+                    type : String,
+                    reflectToAttribute: true,
+                    observer: '_pageChanged'
+                }
+            },
+            ready : function(){
+//                this.async(function(){
+//                    console.log(this.route.path);
+//                    this.set('route.path','login');
+//                });
+            },
+            observers:[
+                    '_routePageChanged(routeData.page)'
+            ],
+            _routePageChanged:function(page){
+                //Check page and perform any authentication ( using behaviours )
+                console.log(page);
+                console.log(page + 'route changed');
+                this.page = page || 'hub';
+            },
+            _pageChanged: function(page) {
+                console.log(page);
+                // load page import on demand.
+                this.importHref(
+                        this.resolveUrl('my-' + page + '.html'), null, null, true);
+            }
+        })
+    </script>
+</dom-module>

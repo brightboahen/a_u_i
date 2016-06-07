@@ -1,0 +1,19 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<dom-module id="my-login">
+    <template>
+        <style></style>
+        <p>I am login</p>
+        <a href="/hub">Back</a>
+        <a href="/classview">Done</a>
+    </template>
+    <script>
+        Polymer({
+            is : 'my-login',
+            ready : function(){
+                console.log('login ready');
+            }
+        });
+    </script>
+</dom-module>

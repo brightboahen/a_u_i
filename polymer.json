@@ -1,9 +1,9 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/views/my-adaptiveUI.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html"
+    "src/views/my-dashboard.html",
+    "src/views/my-hub.html",
+    "src/views/my-login.html"
   ]
 }
